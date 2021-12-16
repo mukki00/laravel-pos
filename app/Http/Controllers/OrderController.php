@@ -49,7 +49,7 @@ class OrderController extends Controller
         $request->user()->cart()->detach();
         $order->payments()->create([
             'amount' => $request->amount,
-            'total' => number_format($total,4),
+            'total' => number_format($total,2),
             'user_id' => $request->user()->id,
         ]);
         return 'success';

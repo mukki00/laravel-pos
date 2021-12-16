@@ -20,10 +20,12 @@ class ProductController extends Controller
     {
         $products = new Product();
         if ($request->search) {
-            $products = $products->where('name', 'LIKE', "%{$request->search}%");
+            $products = $products->where([['name', 'LIKE', "%{$request->search}%"],['status', '=', 1],
+        ['quantity', '>', 0]]);
         }
         $products = $products->latest()->paginate(10);
         if (request()->wantsJson()) {
+            $products = $products->where('quantity','>',0)->where('status','=',1);
             return ProductResource::collection($products);
         }
         return view('products.index')->with('products', $products);

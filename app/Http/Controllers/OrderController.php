@@ -34,20 +34,22 @@ class OrderController extends Controller
             'customer_id' => $request->customer_id,
             'user_id' => $request->user()->id,
         ]);
-
         $cart = $request->user()->cart()->get();
+        $total = 0;
         foreach ($cart as $item) {
             $order->items()->create([
                 'price' => $item->price,
                 'quantity' => $item->pivot->quantity,
                 'product_id' => $item->id,
             ]);
+            $total += $item->price * $item->pivot->quantity;
             $item->quantity = $item->quantity - $item->pivot->quantity;
             $item->save();
         }
         $request->user()->cart()->detach();
         $order->payments()->create([
             'amount' => $request->amount,
+            'total' => number_format($total,4),
             'user_id' => $request->user()->id,
         ]);
         return 'success';

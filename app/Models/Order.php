@@ -31,19 +31,21 @@ class Order extends Model
         if($this->customer) {
             return $this->customer->first_name . ' ' . $this->customer->last_name;
         }
-        return 'Working Customer';
+        return 'Walking Customer';
     }
 
     public function total()
     {
-        return $this->items->map(function ($i){
-            return $i->price;
+        return $this->payments->map(function ($i){
+            return $i->total;
         })->sum();
     }
 
     public function formattedTotal()
     {
-        return number_format($this->total(), 2);
+        return $this->payments->map(function ($i){
+            return $i->total;
+        })->sum();
     }
 
     public function receivedAmount()

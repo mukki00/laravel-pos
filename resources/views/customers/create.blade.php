@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form action="{{ route('customers.store',$customer) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('customers.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">

@@ -20,7 +20,6 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
-
     public function customer()
     {
         return $this->belongsTo(Customer::class);
@@ -58,5 +57,11 @@ class Order extends Model
     public function formattedReceivedAmount()
     {
         return number_format($this->receivedAmount(), 2);
+    }
+    public function recievedProfit()
+    {
+        return $this->items->map(function ($i){
+            return ($i->product->price - $i->product->raw_price) * $i->quantity;
+        })->sum();
     }
 }

@@ -26,6 +26,7 @@ class OrderStoreRequest extends FormRequest
         return [
             'customer_id' => 'nullable|integer|exists:customers,id',
             'amount' => 'required|numeric|min:0',
+            'total' => 'nullable|numeric|min:0',
         ];
     }
 }

@@ -14,6 +14,7 @@ class Cart extends Component {
             barcode: "",
             search: "",
             customer_id: "",
+            total: 0,
         };
 
         this.loadCart = this.loadCart.bind(this);
@@ -98,6 +99,7 @@ class Cart extends Component {
 
     getTotal(cart) {
         const total = cart.map((c) => c.pivot.quantity * c.price);
+        this.setState({ total: sum(total).toFixed(2) });
         return sum(total).toFixed(2);
     }
     handleClickDelete(product_id) {
@@ -149,6 +151,7 @@ class Cart extends Component {
                     .post("/admin/orders", {
                         customer_id: this.state.customer_id,
                         amount,
+                        total,
                     })
                     .then((res) => {
                         this.loadCart();

@@ -63,6 +63,32 @@
             </div>
           </div>
           <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{$total_profit}}</h3>
+
+                <p>Total Profit</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-trophy"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{$profit}}</h3>
+
+                <p>Profit Today</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-lightbulb"></i>
+              </div>
+            </div>
+          </div>
     </div>
 </div>
 @endsection

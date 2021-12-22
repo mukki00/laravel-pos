@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderStoreRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class OrderController extends Controller
 {
     public function index(Request $request) {
@@ -30,10 +30,6 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-        $order = Order::create([
-            'customer_id' => $request->customer_id,
-            'user_id' => $request->user()->id,
-        ]);
         $cart = $request->user()->cart()->get();
         $total = 0;
         foreach ($cart as $item) {
@@ -49,7 +45,11 @@ class OrderController extends Controller
         $request->user()->cart()->detach();
         $order->payments()->create([
             'amount' => $request->amount,
-            'total' => number_format($total,2),
+            'total' => $total,
+            'user_id' => $request->user()->id,
+        ]);
+        $order = Order::create([
+            'customer_id' => $request->customer_id,
             'user_id' => $request->user()->id,
         ]);
         return 'success';

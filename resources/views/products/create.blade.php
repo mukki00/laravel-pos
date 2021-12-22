@@ -59,9 +59,19 @@
             </div>
 
             <div class="form-group">
-                <label for="price">Price</label>
+                <label for="price">Selling Price</label>
                 <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" id="price"
                     placeholder="price" value="{{ old('price') }}">
+                @error('price')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="raw_price">Raw Price</label>
+                <input type="text" name="raw_price" class="form-control @error('raw_price') is-invalid @enderror" id="raw_price"
+                    placeholder="raw price" value="{{ old('raw_price') }}">
                 @error('price')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

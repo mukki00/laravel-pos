@@ -19,6 +19,7 @@
                     <th>Image</th>
                     <th>Barcode</th>
                     <th>Price</th>
+                    <th>Raw Price</th>
                     <th>Quantity</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -34,6 +35,7 @@
                     <td><img src="{{ Storage::url($product->image) }}" alt="" width="100"></td>
                     <td>{{$product->barcode}}</td>
                     <td>{{$product->price}}</td>
+                    <td>{{$product->raw_price}}</td>
                     <td>{{$product->quantity}}</td>
                     <td>
                         <span

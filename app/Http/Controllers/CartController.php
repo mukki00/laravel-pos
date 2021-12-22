@@ -57,7 +57,7 @@ class CartController extends Controller
 
         $cart = $request->user()->cart()->where('id', $request->product_id)->first();
 
-        if ($cart) {
+        if ($cart && $request->quantity > 0 && $request->quantity <= $quantity) {
             $cart->pivot->quantity = $request->quantity;
             $cart->pivot->save();
         }

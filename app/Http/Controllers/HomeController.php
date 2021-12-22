@@ -31,18 +31,14 @@ class HomeController extends Controller
         return view('home', [
             'orders_count' => $orders->count(),
             'income' => $orders->map(function($i) {
-                if($i->receivedAmount() > $i->total()) {
-                    return $i->total();
-                }
                 return $i->receivedAmount();
             })->sum(),
             'income_today' => $orders->where('created_at', '>=', date('Y-m-d').' 00:00:00')->map(function($i) {
-                if($i->receivedAmount() > $i->total()) {
-                    return $i->total();
-                }
                 return $i->receivedAmount();
             })->sum(),
-            'customers_count' => $customers_count
+            'customers_count' => $customers_count,
+            'total_profit' => 0,
+            'profit' => 0,
         ]);
     }
 }

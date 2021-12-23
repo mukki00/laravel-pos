@@ -32,7 +32,6 @@ class Order extends Model
         }
         return 'Walking Customer';
     }
-
     public function total()
     {
         return $this->payments->map(function ($i){
@@ -42,9 +41,7 @@ class Order extends Model
 
     public function formattedTotal()
     {
-        return $this->payments->map(function ($i){
-            return $i->total;
-        })->sum();
+        return number_format($this->total(), 2);
     }
 
     public function receivedAmount()
@@ -63,5 +60,9 @@ class Order extends Model
         return $this->items->map(function ($i){
             return ($i->product->price - $i->product->raw_price) * $i->quantity;
         })->sum();
+    }
+    public function getOrderId()
+    {
+        return $this->items()->order_id;
     }
 }

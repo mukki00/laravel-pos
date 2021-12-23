@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderStoreRequest;
+use App\Http\Requests\OrderUpdateRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,9 +29,18 @@ class OrderController extends Controller
         return view('orders.index', compact('orders', 'total', 'receivedAmount'));
     }
 
+    public function edit(Order $order)
+    {
+        return view('orders.edit')->with('order', $order);
+    }
+
     public function store(OrderStoreRequest $request)
     {
         $cart = $request->user()->cart()->get();
+        $order = Order::create([
+            'customer_id' => $request->customer_id,
+            'user_id' => $request->user()->id,
+        ]);
         $total = 0;
         foreach ($cart as $item) {
             $order->items()->create([
@@ -48,10 +58,23 @@ class OrderController extends Controller
             'total' => $total,
             'user_id' => $request->user()->id,
         ]);
-        $order = Order::create([
-            'customer_id' => $request->customer_id,
-            'user_id' => $request->user()->id,
-        ]);
         return 'success';
+    }
+    public function update(OrderUpdateRequest $request,Order $order)
+    {
+        $updated = $order->payments()->first()->update([
+            'amount' => $request->amount,
+        ]);
+        if (!$updated) {
+            return redirect()->back()->with('error', 'Sorry, there\'re a problem while updating order.');
+        }
+        return redirect()->route('orders.index')->with('success', 'Success, your product have been updated.'.$order->payments()->first()->id);
+    }
+    public function destroy(Order $order)
+    {
+        $order->delete();
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

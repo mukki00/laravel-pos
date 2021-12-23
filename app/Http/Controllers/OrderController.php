@@ -68,7 +68,7 @@ class OrderController extends Controller
         if (!$updated) {
             return redirect()->back()->with('error', 'Sorry, there\'re a problem while updating order.');
         }
-        return redirect()->route('orders.index')->with('success', 'Success, your product have been updated.'.$order->payments()->first()->id);
+        return redirect()->route('orders.index')->with('success', 'Success, your product have been updated.');
     }
     public function destroy(Order $order)
     {

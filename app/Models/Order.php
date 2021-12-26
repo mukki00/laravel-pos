@@ -61,6 +61,10 @@ class Order extends Model
             return ($i->product->price - $i->product->raw_price) * $i->quantity;
         })->sum();
     }
+    public function formattedRecievedProfit()
+    {
+        return number_format($this->recievedProfit(), 2);
+    }
     public function getOrderId()
     {
         return $this->items()->order_id;

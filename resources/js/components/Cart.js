@@ -274,7 +274,7 @@ class Cart extends Component {
                                 disabled={!cart.length}
                                 onClick={this.handleClickSubmit}
                             >
-                                Submit
+                                CASH
                             </button>
                         </div>
                     </div>

@@ -38,10 +38,10 @@ class HomeController extends Controller
             })->sum(),
             'customers_count' => $customers_count,
             'total_profit' => $orders->map(function($i) {
-                return $i->recievedProfit();
+                return $i->formattedRecievedProfit();
             })->sum(),
             'profit' => $orders->where('created_at', '>=', date('Y-m-d').' 00:00:00')->map(function($i) {
-                return $i->recievedProfit();
+                return $i->formattedRecievedProfit();
             })->sum(),
         ]);
     }
